@@ -2,8 +2,6 @@
 
 A lightweight, client-side web tool that converts each page of a PDF file into JPG images directly in your browser. No uploads, no servers — your files stay private.
 
-![PDF to JPG Converter Screenshot](screenshot.png)
-
 ## 🚀 Features
 
 - **100% Client-side**: All processing happens in your browser. Your PDF never leaves your device.

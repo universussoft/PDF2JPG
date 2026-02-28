@@ -29,7 +29,7 @@ A lightweight, client-side web tool that converts each page of a PDF file into J
 
 ## 🌐 Live Demo
 
-Check out the live version here: [PDF to JPG Converter]([https://your-demo-link.com](https://github.com/universussoft/PDF2JPG/)) *(replace with actual URL)*
+Check out the live version here: [PDF to JPG Converter](https://universussoft.github.io/PDF2JPG/) *(replace with actual URL)*
 
 ## 💻 Local Development
 

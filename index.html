@@ -201,6 +201,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -411,10 +412,29 @@
   });
 
   dlAll.addEventListener('click', async () => {
-    for (const img of generatedImages) {
-      downloadImage(img);
-      await new Promise(r => setTimeout(r, 150));
+    if (!generatedImages.length) return;
+    const T = T_ALL[currentLang];
+    const btn = document.getElementById('dlAll');
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+    document.getElementById('t-dlAll').textContent = '⏳ ZIP…';
+
+    const zip = new JSZip();
+    const folder = zip.folder('pages');
+    for (const { dataUrl, name } of generatedImages) {
+      folder.file(name, dataUrl.split(',')[1], { base64: true });
     }
+
+    const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    const zipName = (pdfFile ? pdfFile.name.replace(/\.pdf$/i, '') : 'pages') + '.zip';
+    a.href = url; a.download = zipName; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+
+    btn.disabled = false;
+    btn.style.opacity = '';
+    document.getElementById('t-dlAll').textContent = T.dlAll;
   });
 
   function downloadImage({ dataUrl, name }) {

@@ -8,435 +8,344 @@
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600&display=swap');
 
   :root {
-    --bg: #0d0d0f;
-    --surface: #16161a;
-    --border: #2a2a32;
-    --accent: #f0e040;
-    --accent2: #40e0f0;
-    --text: #e8e8f0;
-    --muted: #6b6b80;
+    --bg: #0d0d0f; --surface: #16161a; --border: #2a2a32;
+    --accent: #f0e040; --accent2: #40e0f0; --text: #e8e8f0; --muted: #6b6b80;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Sora', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px 60px;
+    background: var(--bg); color: var(--text); font-family: 'Sora', sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; padding: 40px 20px 60px;
   }
 
-  header {
-    text-align: center;
-    margin-bottom: 48px;
+  /* Language Switcher */
+  .lang-bar {
+    display: flex; gap: 6px; margin-bottom: 36px;
+    flex-wrap: wrap; justify-content: center;
   }
+  .lang-btn {
+    background: transparent; border: 1px solid var(--border); color: var(--muted);
+    border-radius: 6px; padding: 5px 11px; font-family: 'Space Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.06em; cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .lang-btn.active { border-color: var(--accent); color: #000; background: var(--accent); }
+
+  header { text-align: center; margin-bottom: 48px; }
 
   .logo {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.4em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 12px;
+    font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.4em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 12px;
   }
 
   h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
+    font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 600;
+    line-height: 1.1; letter-spacing: -0.03em;
   }
+  h1 span { color: var(--accent); }
 
-  h1 span {
-    color: var(--accent);
-  }
-
-  .subtitle {
-    margin-top: 10px;
-    color: var(--muted);
-    font-size: 0.95rem;
-    font-weight: 300;
-  }
+  .subtitle { margin-top: 10px; color: var(--muted); font-size: 0.95rem; font-weight: 300; }
 
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 36px;
-    width: 100%;
-    max-width: 680px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 36px; width: 100%; max-width: 680px;
   }
 
-  /* Drop zone */
   .dropzone {
-    border: 2px dashed var(--border);
-    border-radius: 12px;
-    padding: 48px 24px;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    position: relative;
+    border: 2px dashed var(--border); border-radius: 12px; padding: 48px 24px;
+    text-align: center; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s; position: relative;
   }
-
   .dropzone:hover, .dropzone.drag-over {
-    border-color: var(--accent);
-    background: rgba(240,224,64,0.04);
+    border-color: var(--accent); background: rgba(240,224,64,0.04);
   }
+  .dropzone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .drop-icon { font-size: 2.5rem; margin-bottom: 12px; display: block; filter: grayscale(0.3); }
+  .drop-label { font-size: 1rem; font-weight: 600; color: var(--text); }
+  .drop-hint { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
 
-  .dropzone input[type=file] {
-    position: absolute; inset: 0; opacity: 0; cursor: pointer;
-  }
-
-  .drop-icon {
-    font-size: 2.5rem;
-    margin-bottom: 12px;
-    display: block;
-    filter: grayscale(0.3);
-  }
-
-  .drop-label {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .drop-hint {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-
-  /* Options */
-  .options {
-    display: flex;
-    gap: 16px;
-    margin-top: 24px;
-    flex-wrap: wrap;
-  }
-
-  .opt-group {
-    flex: 1;
-    min-width: 140px;
-  }
-
+  .options { display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
+  .opt-group { flex: 1; min-width: 140px; }
   .opt-group label {
-    display: block;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
-    font-family: 'Space Mono', monospace;
+    display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 8px; font-family: 'Space Mono', monospace;
   }
-
   .opt-group select, .opt-group input[type=range] {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    padding: 8px 12px;
-    font-family: 'Sora', sans-serif;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s;
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); padding: 8px 12px;
+    font-family: 'Sora', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s;
   }
-
   .opt-group select:focus { border-color: var(--accent); }
+  .scale-val { font-family: 'Space Mono', monospace; font-size: 0.85rem; color: var(--accent); margin-top: 4px; }
+  input[type=range] { padding: 4px 0 !important; accent-color: var(--accent); cursor: pointer; }
 
-  .scale-val {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--accent);
-    margin-top: 4px;
-  }
-
-  input[type=range] {
-    padding: 4px 0 !important;
-    accent-color: var(--accent);
-    cursor: pointer;
-  }
-
-  /* Button */
   .btn {
-    margin-top: 28px;
-    width: 100%;
-    padding: 14px;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
+    margin-top: 28px; width: 100%; padding: 14px; background: var(--accent); color: #000;
+    border: none; border-radius: 10px; font-family: 'Space Mono', monospace; font-size: 0.9rem;
+    font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
     transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
   }
-
-  .btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(240,224,64,0.3);
-  }
-
+  .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240,224,64,0.3); }
   .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* Progress */
-  .progress-wrap {
-    margin-top: 24px;
-    display: none;
-  }
+  .progress-wrap { margin-top: 24px; display: none; }
+  .progress-bar-bg { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--accent); border-radius: 99px; width: 0%; transition: width 0.3s ease; }
+  .progress-text { font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted); margin-top: 8px; text-align: center; }
 
-  .progress-bar-bg {
-    height: 4px;
-    background: var(--border);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 99px;
-    width: 0%;
-    transition: width 0.3s ease;
-  }
-
-  .progress-text {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--muted);
-    margin-top: 8px;
-    text-align: center;
-  }
-
-  /* Results */
-  .results {
-    margin-top: 40px;
-    width: 100%;
-    max-width: 680px;
-  }
-
-  .results-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .results-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent2);
-  }
-
+  .results { margin-top: 40px; width: 100%; max-width: 680px; }
+  .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .results-title { font-family: 'Space Mono', monospace; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); }
   .btn-dl-all {
-    padding: 8px 16px;
-    background: transparent;
-    border: 1px solid var(--accent2);
-    color: var(--accent2);
-    border-radius: 8px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    padding: 8px 16px; background: transparent; border: 1px solid var(--accent2);
+    color: var(--accent2); border-radius: 8px; font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; cursor: pointer; transition: background 0.2s, color 0.2s;
   }
+  .btn-dl-all:hover { background: var(--accent2); color: #000; }
 
-  .btn-dl-all:hover {
-    background: var(--accent2);
-    color: #000;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 16px;
-  }
-
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
   .thumb-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: border-color 0.2s, transform 0.2s;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; transition: border-color 0.2s, transform 0.2s;
   }
-
-  .thumb-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-3px);
-  }
-
-  .thumb-card img {
-    width: 100%;
-    display: block;
-    aspect-ratio: 0.707;
-    object-fit: cover;
-    background: #111;
-  }
-
-  .thumb-footer {
-    padding: 8px 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .page-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--muted);
-  }
-
+  .thumb-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .thumb-card img { width: 100%; display: block; aspect-ratio: 0.707; object-fit: cover; background: #111; }
+  .thumb-footer { padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; }
+  .page-label { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--muted); }
   .btn-dl {
-    font-size: 0.72rem;
-    background: none;
-    border: none;
-    color: var(--accent);
-    cursor: pointer;
-    font-family: 'Space Mono', monospace;
-    text-decoration: underline;
-    padding: 0;
-    transition: color 0.15s;
+    font-size: 0.72rem; background: none; border: none; color: var(--accent);
+    cursor: pointer; font-family: 'Space Mono', monospace; text-decoration: underline;
+    padding: 0; transition: color 0.15s;
   }
-
   .btn-dl:hover { color: #fff; }
+
+  /* Donation */
+  .donate-wrap { margin-top: 40px; text-align: center; }
+  #donateBtn {
+    display: inline-block; padding: 12px 28px; background: transparent;
+    border: 1.5px solid #f0b429; color: #f0b429; border-radius: 10px;
+    font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase;
+    transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.15s;
+  }
+  #donateBtn:hover { background: #f0b429; color: #000; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(240,180,41,0.35); }
+  .donate-sub { margin-top: 8px; font-size: 0.75rem; color: var(--muted); font-family: 'Space Mono', monospace; }
 </style>
 </head>
 <body>
 
+<div class="lang-bar" id="langBar">
+  <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+  <button class="lang-btn" data-lang="fr">🇫🇷 FR</button>
+  <button class="lang-btn" data-lang="es">🇪🇸 ES</button>
+  <button class="lang-btn active" data-lang="pt">🇵🇹 PT</button>
+  <button class="lang-btn" data-lang="de">🇩🇪 DE</button>
+  <button class="lang-btn" data-lang="it">🇮🇹 IT</button>
+</div>
+
 <header>
-  <div class="logo">Ferramenta Web</div>
+  <div class="logo" id="t-logo"></div>
   <h1>PDF <span>→</span> JPG</h1>
-  <p class="subtitle">Converte cada página do PDF numa imagem JPG — tudo no browser, sem upload para servidores.</p>
+  <p class="subtitle" id="t-subtitle"></p>
 </header>
 
 <div class="card">
   <div class="dropzone" id="dropzone">
     <input type="file" id="fileInput" accept=".pdf" />
     <span class="drop-icon">📄</span>
-    <div class="drop-label">Arrasta o PDF aqui ou clica para escolher</div>
-    <div class="drop-hint" id="fileName">Apenas ficheiros .pdf</div>
+    <div class="drop-label" id="t-dropLabel"></div>
+    <div class="drop-hint" id="fileName"></div>
   </div>
 
   <div class="options">
     <div class="opt-group">
-      <label>Qualidade JPG</label>
+      <label id="t-qualityLabel"></label>
       <select id="quality">
-        <option value="0.7">Baixa (70%)</option>
-        <option value="0.85">Média (85%)</option>
-        <option value="0.95" selected>Alta (95%)</option>
-        <option value="1">Máxima (100%)</option>
+        <option value="0.7" id="t-qLow"></option>
+        <option value="0.85" id="t-qMed"></option>
+        <option value="0.95" selected id="t-qHigh"></option>
+        <option value="1" id="t-qMax"></option>
       </select>
     </div>
     <div class="opt-group">
-      <label>Escala / DPI</label>
+      <label id="t-scaleLabel"></label>
       <input type="range" id="scale" min="1" max="4" step="0.5" value="2" />
       <div class="scale-val" id="scaleVal">×2.0 (144 DPI equiv.)</div>
     </div>
   </div>
 
-  <button class="btn" id="convertBtn" disabled>Converter para JPG</button>
+  <button class="btn" id="convertBtn" disabled></button>
 
   <div class="progress-wrap" id="progressWrap">
     <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
-    <div class="progress-text" id="progressText">A processar...</div>
+    <div class="progress-text" id="progressText"></div>
   </div>
 </div>
 
 <div class="results" id="results" style="display:none">
   <div class="results-header">
-    <span class="results-title" id="resultsTitle">0 páginas convertidas</span>
-    <button class="btn-dl-all" id="dlAll">⬇ Descarregar Todas</button>
+    <span class="results-title" id="resultsTitle"></span>
+    <button class="btn-dl-all" id="dlAll">⬇ <span id="t-dlAll"></span></button>
   </div>
   <div class="grid" id="grid"></div>
 </div>
 
-<!-- Donation -->
-<div style="margin-top:40px;text-align:center;">
+<div class="donate-wrap">
   <a href="https://www.paypal.com/paypalme/edobgames" target="_blank" rel="noopener" id="donateBtn">
-    ☕ Apoiar o Projeto
+    ☕ <span id="t-donate"></span>
   </a>
-  <p style="margin-top:8px;font-size:0.75rem;color:var(--muted);font-family:'Space Mono',monospace;">Se esta ferramenta foi útil, considera fazer uma doação 🙏</p>
+  <p class="donate-sub" id="t-donateSub"></p>
 </div>
 
-<style>
-  #donateBtn {
-    display: inline-block;
-    padding: 12px 28px;
-    background: transparent;
-    border: 1.5px solid #f0b429;
-    color: #f0b429;
-    border-radius: 10px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.15s;
-  }
-  #donateBtn:hover {
-    background: #f0b429;
-    color: #000;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(240,180,41,0.35);
-  }
-</style>
-
-<!-- PDF.js from CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-  const fileInput = document.getElementById('fileInput');
-  const dropzone  = document.getElementById('dropzone');
-  const fileName  = document.getElementById('fileName');
-  const convertBtn= document.getElementById('convertBtn');
-  const scaleSlider = document.getElementById('scale');
-  const scaleVal  = document.getElementById('scaleVal');
+  const T_ALL = {
+    pt: {
+      logo:'Ferramenta Web', subtitle:'Converte cada página do PDF numa imagem JPG — tudo no browser, sem upload para servidores.',
+      dropLabel:'Arrasta o PDF aqui ou clica para escolher', dropHint:'Apenas ficheiros .pdf',
+      qualityLabel:'Qualidade JPG', scaleLabel:'Escala / DPI',
+      qLow:'Baixa (70%)', qMed:'Média (85%)', qHigh:'Alta (95%)', qMax:'Máxima (100%)',
+      convertBtn:'Converter para JPG', dlAll:'Descarregar Todas',
+      donate:'Apoiar o Projeto', donateSub:'Se esta ferramenta foi útil, considera fazer uma doação 🙏',
+      processing:(i,t)=>`A converter página ${i} de ${t}…`,
+      done:(t)=>`✓ ${t} página${t>1?'s':''} convertida${t>1?'s':''} com sucesso!`,
+      resultTitle:(t)=>`${t} página${t>1?'s':''} convertida${t>1?'s':''}`,
+      pageLabel:(i)=>`Pág. ${i}`, save:'Guardar', error:'Erro ao processar o PDF: ',
+    },
+    en: {
+      logo:'Web Tool', subtitle:'Converts each PDF page into a JPG image — all in the browser, no server uploads.',
+      dropLabel:'Drag your PDF here or click to choose', dropHint:'PDF files only',
+      qualityLabel:'JPG Quality', scaleLabel:'Scale / DPI',
+      qLow:'Low (70%)', qMed:'Medium (85%)', qHigh:'High (95%)', qMax:'Maximum (100%)',
+      convertBtn:'Convert to JPG', dlAll:'Download All',
+      donate:'Support the Project', donateSub:'If this tool was useful, consider making a donation 🙏',
+      processing:(i,t)=>`Converting page ${i} of ${t}…`,
+      done:(t)=>`✓ ${t} page${t>1?'s':''} converted successfully!`,
+      resultTitle:(t)=>`${t} page${t>1?'s':''} converted`,
+      pageLabel:(i)=>`Page ${i}`, save:'Save', error:'Error processing PDF: ',
+    },
+    fr: {
+      logo:'Outil Web', subtitle:'Convertit chaque page du PDF en image JPG — tout dans le navigateur, sans envoi au serveur.',
+      dropLabel:'Glissez le PDF ici ou cliquez pour choisir', dropHint:'Fichiers .pdf uniquement',
+      qualityLabel:'Qualité JPG', scaleLabel:'Échelle / DPI',
+      qLow:'Basse (70%)', qMed:'Moyenne (85%)', qHigh:'Haute (95%)', qMax:'Maximale (100%)',
+      convertBtn:'Convertir en JPG', dlAll:'Tout télécharger',
+      donate:'Soutenir le projet', donateSub:'Si cet outil vous a été utile, pensez à faire un don 🙏',
+      processing:(i,t)=>`Conversion de la page ${i} sur ${t}…`,
+      done:(t)=>`✓ ${t} page${t>1?'s':''} convertie${t>1?'s':''} avec succès !`,
+      resultTitle:(t)=>`${t} page${t>1?'s':''} convertie${t>1?'s':''}`,
+      pageLabel:(i)=>`Page ${i}`, save:'Enregistrer', error:'Erreur lors du traitement du PDF : ',
+    },
+    es: {
+      logo:'Herramienta Web', subtitle:'Convierte cada página del PDF en una imagen JPG — todo en el navegador, sin subir archivos al servidor.',
+      dropLabel:'Arrastra el PDF aquí o haz clic para elegir', dropHint:'Solo archivos .pdf',
+      qualityLabel:'Calidad JPG', scaleLabel:'Escala / DPI',
+      qLow:'Baja (70%)', qMed:'Media (85%)', qHigh:'Alta (95%)', qMax:'Máxima (100%)',
+      convertBtn:'Convertir a JPG', dlAll:'Descargar Todo',
+      donate:'Apoyar el Proyecto', donateSub:'Si esta herramienta fue útil, considera hacer una donación 🙏',
+      processing:(i,t)=>`Convirtiendo página ${i} de ${t}…`,
+      done:(t)=>`✓ ¡${t} página${t>1?'s':''} convertida${t>1?'s':''} con éxito!`,
+      resultTitle:(t)=>`${t} página${t>1?'s':''} convertida${t>1?'s':''}`,
+      pageLabel:(i)=>`Pág. ${i}`, save:'Guardar', error:'Error al procesar el PDF: ',
+    },
+    de: {
+      logo:'Web-Werkzeug', subtitle:'Wandelt jede PDF-Seite in ein JPG-Bild um — alles im Browser, kein Upload auf Server.',
+      dropLabel:'PDF hier hineinziehen oder klicken zum Auswählen', dropHint:'Nur .pdf-Dateien',
+      qualityLabel:'JPG-Qualität', scaleLabel:'Skalierung / DPI',
+      qLow:'Niedrig (70%)', qMed:'Mittel (85%)', qHigh:'Hoch (95%)', qMax:'Maximal (100%)',
+      convertBtn:'In JPG konvertieren', dlAll:'Alle herunterladen',
+      donate:'Projekt unterstützen', donateSub:'Wenn dieses Tool nützlich war, erwäge eine Spende 🙏',
+      processing:(i,t)=>`Konvertiere Seite ${i} von ${t}…`,
+      done:(t)=>`✓ ${t} Seite${t>1?'n':''} erfolgreich konvertiert!`,
+      resultTitle:(t)=>`${t} Seite${t>1?'n':''} konvertiert`,
+      pageLabel:(i)=>`Seite ${i}`, save:'Speichern', error:'Fehler beim Verarbeiten der PDF: ',
+    },
+    it: {
+      logo:'Strumento Web', subtitle:"Converte ogni pagina del PDF in un'immagine JPG — tutto nel browser, senza caricare sui server.",
+      dropLabel:'Trascina il PDF qui o clicca per scegliere', dropHint:'Solo file .pdf',
+      qualityLabel:'Qualità JPG', scaleLabel:'Scala / DPI',
+      qLow:'Bassa (70%)', qMed:'Media (85%)', qHigh:'Alta (95%)', qMax:'Massima (100%)',
+      convertBtn:'Converti in JPG', dlAll:'Scarica Tutto',
+      donate:'Supporta il Progetto', donateSub:'Se questo strumento è stato utile, considera una donazione 🙏',
+      processing:(i,t)=>`Conversione pagina ${i} di ${t}…`,
+      done:(t)=>`✓ ${t} pagina${t>1?'e':''} convertita${t>1?'e':''} con successo!`,
+      resultTitle:(t)=>`${t} pagina${t>1?'e':''} convertita${t>1?'e':''}`,
+      pageLabel:(i)=>`Pag. ${i}`, save:'Salva', error:"Errore durante l'elaborazione del PDF: ",
+    },
+  };
+
+  let currentLang = 'pt';
+  let pdfFile = null;
+  let generatedImages = [];
+
+  function applyLang(lang) {
+    const T = T_ALL[lang];
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.getElementById('t-logo').textContent        = T.logo;
+    document.getElementById('t-subtitle').textContent    = T.subtitle;
+    document.getElementById('t-dropLabel').textContent   = T.dropLabel;
+    document.getElementById('t-qualityLabel').textContent= T.qualityLabel;
+    document.getElementById('t-scaleLabel').textContent  = T.scaleLabel;
+    document.getElementById('t-qLow').textContent        = T.qLow;
+    document.getElementById('t-qMed').textContent        = T.qMed;
+    document.getElementById('t-qHigh').textContent       = T.qHigh;
+    document.getElementById('t-qMax').textContent        = T.qMax;
+    document.getElementById('convertBtn').textContent    = T.convertBtn;
+    document.getElementById('t-dlAll').textContent       = T.dlAll;
+    document.getElementById('t-donate').textContent      = T.donate;
+    document.getElementById('t-donateSub').textContent   = T.donateSub;
+    if (!pdfFile) document.getElementById('fileName').textContent = T.dropHint;
+    document.querySelectorAll('.lang-btn').forEach(b =>
+      b.classList.toggle('active', b.dataset.lang === lang));
+  }
+
+  document.getElementById('langBar').addEventListener('click', e => {
+    if (e.target.classList.contains('lang-btn')) applyLang(e.target.dataset.lang);
+  });
+
+  applyLang('pt');
+
+  // ── App ───────────────────────────────────────────────────────────────────
+  const fileInput    = document.getElementById('fileInput');
+  const dropzone     = document.getElementById('dropzone');
+  const fileNameEl   = document.getElementById('fileName');
+  const convertBtn   = document.getElementById('convertBtn');
+  const scaleSlider  = document.getElementById('scale');
+  const scaleVal     = document.getElementById('scaleVal');
   const progressWrap = document.getElementById('progressWrap');
   const progressBar  = document.getElementById('progressBar');
   const progressText = document.getElementById('progressText');
-  const resultsDiv= document.getElementById('results');
-  const grid      = document.getElementById('grid');
+  const resultsDiv   = document.getElementById('results');
+  const grid         = document.getElementById('grid');
   const resultsTitle = document.getElementById('resultsTitle');
-  const dlAll     = document.getElementById('dlAll');
+  const dlAll        = document.getElementById('dlAll');
 
-  let pdfFile = null;
-  let generatedImages = []; // {dataUrl, name}
-
-  const dpiMap = {1:'72 DPI equiv.', 1.5:'108 DPI equiv.', 2:'144 DPI equiv.', 2.5:'180 DPI equiv.', 3:'216 DPI equiv.', 3.5:'252 DPI equiv.', 4:'288 DPI equiv.'};
+  const dpiMap = {1:'72',1.5:'108',2:'144',2.5:'180',3:'216',3.5:'252',4:'288'};
 
   scaleSlider.addEventListener('input', () => {
     const v = parseFloat(scaleSlider.value);
-    scaleVal.textContent = `×${v.toFixed(1)} (${dpiMap[v] || ''})`;
+    scaleVal.textContent = `×${v.toFixed(1)} (${dpiMap[v]||''} DPI equiv.)`;
   });
 
-  // Drag & drop
   dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag-over'); });
   dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
   dropzone.addEventListener('drop', e => {
-    e.preventDefault();
-    dropzone.classList.remove('drag-over');
+    e.preventDefault(); dropzone.classList.remove('drag-over');
     const f = e.dataTransfer.files[0];
     if (f && f.type === 'application/pdf') setFile(f);
   });
-
-  fileInput.addEventListener('change', () => {
-    if (fileInput.files[0]) setFile(fileInput.files[0]);
-  });
+  fileInput.addEventListener('change', () => { if (fileInput.files[0]) setFile(fileInput.files[0]); });
 
   function setFile(f) {
     pdfFile = f;
-    fileName.textContent = `📎 ${f.name} (${(f.size/1024/1024).toFixed(2)} MB)`;
+    fileNameEl.textContent = `📎 ${f.name} (${(f.size/1024/1024).toFixed(2)} MB)`;
     convertBtn.disabled = false;
     resultsDiv.style.display = 'none';
     grid.innerHTML = '';
@@ -445,83 +354,72 @@
 
   convertBtn.addEventListener('click', async () => {
     if (!pdfFile) return;
+    const T = T_ALL[currentLang];
     convertBtn.disabled = true;
     progressWrap.style.display = 'block';
     progressBar.style.width = '0%';
-    grid.innerHTML = '';
-    generatedImages = [];
+    grid.innerHTML = ''; generatedImages = [];
     resultsDiv.style.display = 'none';
 
     const quality = parseFloat(document.getElementById('quality').value);
     const scale   = parseFloat(scaleSlider.value);
 
     try {
-      const arrayBuffer = await pdfFile.arrayBuffer();
-      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      const pdf   = await pdfjsLib.getDocument({ data: await pdfFile.arrayBuffer() }).promise;
       const total = pdf.numPages;
 
       for (let i = 1; i <= total; i++) {
-        progressText.textContent = `A converter página ${i} de ${total}…`;
-        progressBar.style.width = `${Math.round((i-1)/total*100)}%`;
+        progressText.textContent = T.processing(i, total);
+        progressBar.style.width  = `${Math.round((i-1)/total*100)}%`;
 
-        const page = await pdf.getPage(i);
+        const page     = await pdf.getPage(i);
         const viewport = page.getViewport({ scale });
-        const canvas = document.createElement('canvas');
-        canvas.width  = viewport.width;
-        canvas.height = viewport.height;
-        const ctx = canvas.getContext('2d');
-        await page.render({ canvasContext: ctx, viewport }).promise;
+        const canvas   = document.createElement('canvas');
+        canvas.width   = viewport.width; canvas.height = viewport.height;
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
 
         const dataUrl = canvas.toDataURL('image/jpeg', quality);
-        const name = `pagina_${String(i).padStart(3,'0')}.jpg`;
+        const name    = `page_${String(i).padStart(3,'0')}.jpg`;
         generatedImages.push({ dataUrl, name });
 
-        // Add thumb
         const card = document.createElement('div');
         card.className = 'thumb-card';
         card.innerHTML = `
-          <img src="${dataUrl}" loading="lazy" alt="Página ${i}" />
+          <img src="${dataUrl}" loading="lazy" alt="${T.pageLabel(i)}" />
           <div class="thumb-footer">
-            <span class="page-label">Pág. ${i}</span>
-            <button class="btn-dl" data-idx="${i-1}">⬇ Guardar</button>
+            <span class="page-label">${T.pageLabel(i)}</span>
+            <button class="btn-dl" data-idx="${i-1}">⬇ ${T.save}</button>
           </div>`;
         grid.appendChild(card);
       }
 
-      progressBar.style.width = '100%';
-      progressText.textContent = `✓ ${total} páginas convertidas com sucesso!`;
-      resultsTitle.textContent = `${total} página${total>1?'s':''} convertida${total>1?'s':''}`;
+      progressBar.style.width  = '100%';
+      progressText.textContent = T.done(total);
+      resultsTitle.textContent = T.resultTitle(total);
       resultsDiv.style.display = 'block';
       convertBtn.disabled = false;
 
     } catch(err) {
-      progressText.textContent = '❌ Erro ao processar o PDF: ' + err.message;
+      progressText.textContent = T.error + err.message;
       convertBtn.disabled = false;
-      console.error(err);
     }
   });
 
-  // Individual download
   grid.addEventListener('click', e => {
-    if (e.target.classList.contains('btn-dl')) {
-      const idx = parseInt(e.target.dataset.idx);
-      downloadImage(generatedImages[idx]);
-    }
+    if (e.target.classList.contains('btn-dl'))
+      downloadImage(generatedImages[parseInt(e.target.dataset.idx)]);
   });
 
-  // Download all
   dlAll.addEventListener('click', async () => {
     for (const img of generatedImages) {
       downloadImage(img);
-      await new Promise(r => setTimeout(r, 150)); // slight delay to avoid browser blocking
+      await new Promise(r => setTimeout(r, 150));
     }
   });
 
   function downloadImage({ dataUrl, name }) {
     const a = document.createElement('a');
-    a.href = dataUrl;
-    a.download = name;
-    a.click();
+    a.href = dataUrl; a.download = name; a.click();
   }
 </script>
 </body>

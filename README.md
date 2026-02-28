@@ -37,4 +37,4 @@ To run this tool locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/pdf-to-jpg-converter.git
+   git clone https://github.com/universussoft/PDF2JPG.git
